@@ -7,16 +7,23 @@ import java.util.Arrays;
 public class SpellChecker
 {
   private ArrayList<String> dictionary;
+  private ArrayList<String> mydictionary;
 
   // constructor; uses try-catch syntax which we haven't discussed!
   public SpellChecker()
   {
     importDictionary();
   }
+  //public SpellChecker2() { importMyDictionary(); }
 
   public ArrayList<String> getDictionary()
   {
     return dictionary;
+  }
+
+  public ArrayList<String> getMydictionary()
+  {
+    return mydictionary;
   }
 
   /** This uses LINEAR search to find a word in the dictionary ArrayList and also
@@ -52,9 +59,31 @@ public class SpellChecker
   */
   public boolean binarySpellCheck(String word)
   {
-    /* IMPLEMENT ME! */
+    int count = 0;
+    int left = 0;
+    int right = dictionary.size() - 1;
 
-    return false; // STUB
+    while (left <= right)
+    {
+      count++;
+      int middle = (left + right) / 2;
+
+      if (word.compareTo(dictionary.get(middle)) < 0)
+      {
+        right = middle - 1;
+      }
+      if (word.compareTo(dictionary.get(middle)) > 0)
+      {
+        left = middle + 1;
+      }
+      if (word.compareTo(dictionary.get(middle)) == 0)
+      {
+        System.out.println("-- BINARY SEARCH: Number of words checked (loops/runtime): " + count);
+        return true;
+      }
+    }
+    System.out.println("-- BINARY SEARCH: Number of words checked (loops/runtime): " + count);
+    return false;
   }
 
   // private helper method, called in the constructor, which loads the words
